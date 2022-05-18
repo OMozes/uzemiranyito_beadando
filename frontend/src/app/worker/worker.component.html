@@ -1,0 +1,49 @@
+<div class="list-container">
+  <div class="list-item" *ngFor="let worker of workers">
+    <div class="item-header">
+      <span class="item-column">{{worker.id}}</span>
+      <span class="item-column">-</span>
+      <span class="item-column">{{worker.name}}</span>
+      <hr>
+    </div>
+    <div class="item-body">
+      <div class="item-column">
+        <span class="item-column">Képzetség:</span>
+        <span class="item-column">{{worker.qualification}}</span>
+      </div>
+      <div class="item-column">
+        <span class="item-column">Fizetés:</span>
+        <span class="item-column">{{worker.salary}} Ft</span>
+      </div>
+      <div class="item-column">
+        <span class="item-column">Státusz:</span>
+        <span class="item-column">{{worker.status}}</span>
+      </div>
+      <div class="item-column align-center">
+        <button class="update-button" mat-raised-button color="primary" (click)="updateWorker(worker.id)">Frissít</button>
+      </div>
+      <div *ngIf="worker.works.length > 0">
+        <hr>
+        <div class="expansion-container">
+          <mat-expansion-panel hideToggle class="expansion-panel">
+            <mat-expansion-panel-header>
+              <mat-panel-title class="expansion-title ">
+                Munkák
+              </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div class="expansion-item" *ngFor="let work of worker.works">
+              {{work.id}} - {{work.name}}
+              <button mat-stroked-button color="warn" (click)="deleteWorkFromWorker(worker.id, work.id)">Kivonás</button>
+            </div>
+          </mat-expansion-panel>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div  class="list-item" *ngIf="workers.length < 1 && errorMsg">
+    <h1>{{errorMsg}}</h1>
+  </div>
+  <div  class="list-item" *ngIf="workers.length < 1 && !errorMsg">
+    <h1>Nincs gép az adatbázisban!</h1>
+  </div>
+</div>

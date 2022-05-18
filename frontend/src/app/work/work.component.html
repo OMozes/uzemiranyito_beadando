@@ -1,0 +1,38 @@
+<div class="list-container">
+  <div class="list-item" *ngFor="let work of works">
+    <div class="item-header">
+      <span class="item-column">{{work.id}}</span>
+      <span class="item-column">-</span>
+      <span class="item-column">{{work.name}}</span>
+      <hr>
+    </div>
+    <div class="expansion-container" *ngIf="work.workers.length > 0 || work.tasks.length > 0">
+      <div *ngIf="work.workers.length > 0">
+        <mat-expansion-panel hideToggle class="expansion-panel left-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="expansion-title ">
+              Dolgozók
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="expansion-item" *ngFor="let worker of work.workers">{{worker.id}} - {{worker.name}}</p>
+        </mat-expansion-panel>
+      </div>
+      <div *ngIf="work.tasks.length > 0">
+        <mat-expansion-panel hideToggle class="expansion-panel right-panel">
+          <mat-expansion-panel-header>
+            <mat-panel-title class="expansion-title ">
+              Feladatok
+            </mat-panel-title>
+          </mat-expansion-panel-header>
+          <p class="expansion-item" *ngFor="let task of work.tasks">{{task.id}} - {{task.name}}</p>
+        </mat-expansion-panel>
+      </div>
+    </div>
+  </div>
+  <div  class="list-item" *ngIf="works.length < 1 && errorMsg">
+    <h1>{{errorMsg}}</h1>
+  </div>
+  <div  class="list-item" *ngIf="works.length < 1 && !errorMsg">
+    <h1>Nincs gép az adatbázisban!</h1>
+  </div>
+</div>
